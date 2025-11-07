@@ -1,0 +1,32 @@
+.toolbar {
+    background-color: var(--mat-sys-primary-container);
+    color: var(--mat-sys-primary);
+    font-family: var(--mat-button-text-label-text-font, var(--mat-sys-label-large-font));
+    font-size: 1.5rem;
+    letter-spacing: var(--mat-button-text-label-text-tracking, var(--mat-sys-label-large-tracking));
+    text-transform: var(--mat-button-text-label-text-transform);
+    font-weight: var(--mat-button-text-label-text-weight, var(--mat-sys-label-large-weight));
+    display: flex;
+    align-items: center;
+    min-height: 64px;
+    padding: 0px 10px;
+
+    mat-icon {
+        color: var(--mat-sys-primary);
+        margin-right: 8px;
+        font-size: 30px;
+        height: 32px;
+        width: 32px;
+    }
+}
+
+
+
+.main-section {
+  padding: 24px;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  min-height: calc(100vh - 128px); // Full screen minus toolbar height + padding top and bottom
+  display: flex;
+  flex-direction: column;
+}
