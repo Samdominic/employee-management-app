@@ -1,1 +1,25 @@
-<p>add-employee works!</p>
+<mat-card class="employee-card">
+
+    <mat-toolbar class="employee-toolbar" color="primary">
+
+        <button class="back-btn" matMiniFab routerLink="/employees">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+
+        <span>Edit Employee</span>
+
+        <span class="spacer"></span>
+
+        <button (click)="addEmployee()" matButton="tonal">
+            <mat-icon>add</mat-icon>
+            Add
+        </button>
+
+    </mat-toolbar>
+
+    <mat-card-content>
+        <p>Please enter the new employee's details below:</p>
+        <app-employee-form (formReady)="onFormReady($event)"></app-employee-form>
+    </mat-card-content>
+
+</mat-card>

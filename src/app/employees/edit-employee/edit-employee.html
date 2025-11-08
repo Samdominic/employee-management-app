@@ -1,1 +1,25 @@
-<p>edit-employee works!</p>
+<mat-card class="employee-edit-card">
+
+    <mat-toolbar class="employee-edit-toolbar" color="primary">
+
+        <button class="back-btn" matMiniFab routerLink="/employees">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+
+        <span>Edit Employee</span>
+
+        <span class="spacer"></span>
+
+        <button matButton="tonal">
+            <mat-icon>save</mat-icon>
+            save
+        </button>
+
+    </mat-toolbar>
+
+    <mat-card-content>
+        <p>Please update the employee details below:</p>
+        <app-employee-form (formReady)="onFormReady($event)"></app-employee-form>
+    </mat-card-content>
+
+</mat-card>

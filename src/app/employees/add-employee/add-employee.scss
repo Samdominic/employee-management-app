@@ -1,0 +1,25 @@
+.employee-card {
+    margin: auto;
+    max-width: 700px;
+    border-radius: 16px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.employee-toolbar {
+    background: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-top-right-radius: 16px;
+    border-top-left-radius: 16px;
+}
+
+.back-btn {
+    box-shadow: none !important;
+    background: none !important;
+    color: var(--mat-sys-on-primary) !important;
+}

@@ -1,0 +1,18 @@
+{
+  "employees": [
+    {
+      "id": "35cb",
+      "name": "Sam",
+      "department": "IT",
+      "salary": 100000,
+      "joiningDate": "2025-11-03T18:30:00.000Z"
+    },
+    {
+      "id": "e85c",
+      "name": "Sam",
+      "department": "HR",
+      "salary": 458,
+      "joiningDate": "2025-11-14T18:30:00.000Z"
+    }
+  ]
+}

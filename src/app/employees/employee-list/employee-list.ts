@@ -1,39 +1,55 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, inject, signal } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatCard, MatCardContent, MatCardHeader } from '@angular/material/card';
+import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { Employee, EmployeeService } from '../../services/employee.service';
 import { MatSort, MatSortHeader, Sort } from '@angular/material/sort';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
-import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
+import { MatDialog } from '@angular/material/dialog';
+import { EmployeeDeleteDialogue } from '../employee-delete-dialogue/employee-delete-dialogue';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { catchError, finalize, tap } from 'rxjs';
 
 @Component({
   selector: 'app-employee-list',
-  imports: [MatIconButton, MatButton, MatIcon, MatCard, MatCardHeader, MatCardContent, MatTableModule,
-    MatSortHeader, MatSort, CurrencyPipe, RouterLink, MatFormField, MatInput, MatLabel, FormsModule],
+  imports: [CommonModule, MatIconButton, MatButton, MatIcon, MatCard, MatCardContent, MatTableModule,
+    MatSortHeader, MatSort, CurrencyPipe, RouterLink, FormsModule, MatToolbar, MatProgressSpinner],
   templateUrl: './employee-list.html',
   styleUrl: './employee-list.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmployeeList {
   private employeeService = inject(EmployeeService);
+  readonly dialog = inject(MatDialog);
+  private cdr = inject(ChangeDetectorRef);
 
-  private readonly employees = this.employeeService.getEmployees();
-  filteredEmployees = computed(()=> this.sortAndFilterEmployees())
-
-  sortDirection = signal<'asc' | 'desc' | ''>('');
+  private readonly employees = signal<Employee[]>([]);
+  filteredEmployees = computed(() => this.sortAndFilterEmployees())
+  showLoading = signal(true);
+  private sortDirection = signal<'asc' | 'desc' | ''>('');
   displayedColumns = ['id', 'name', 'department', 'salary', 'actions'];
   searchTerm = signal('');
+  errorMessage = signal<string | null>(null);
 
   constructor() {
-
-  }
-
-  ngOnInit() {
-    console.log(this.employees)
+    this.employeeService.getEmployees().pipe(
+      takeUntilDestroyed(),
+      catchError((error) => {
+        this.errorMessage.set('Failed to load employees');
+        this.showLoading.set(false);
+        return [];
+      }),
+      tap((employees) => {
+        this.employees.set([...(employees ?? [])]);
+      }),
+      finalize((() => { this.showLoading.set(false); }))
+    ).subscribe();
   }
 
   clearSearch() {
@@ -53,7 +69,7 @@ export class EmployeeList {
   }
 
   private filterEmployeesBySearchTerm(): Employee[] {
-    const filteredEmployees = this.employees.filter((e) => {
+    const filteredEmployees = this.employees().filter((e) => {
       const name = e.name.toLowerCase();
       const department = e.department.toLowerCase();
       const searchTerm = this.searchTerm().toLowerCase();
@@ -78,7 +94,29 @@ export class EmployeeList {
     return sortedEmployees;
   }
 
-  deleteEmployee(id: string) {
+  openDeleteDialog(id: number): void {
+    const employee = this.filteredEmployees()?.find((e) => e.id === id)
 
+    const dialogRef = this.dialog.open(EmployeeDeleteDialogue, {
+      data: {
+        name: employee?.name
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('result', result)
+      if (result) {
+        this.deleteEmployee(id);
+      }
+    })
+  }
+
+  deleteEmployee(id: number) {
+
+  }
+
+  clearError() {
+    this.errorMessage.set(null);
+    this.cdr.markForCheck();
   }
 }
