@@ -59,7 +59,7 @@
   }
 
   .search-wrapper:focus-within {
-    box-shadow: 0 0 0 3px rgba(63,81,181,0.06);
+    box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.06);
   }
 }
 
@@ -76,6 +76,7 @@
   width: 100%;
   border-collapse: separate;
 }
+
 .employee-table th {
   background: var(--mat-sys-surface-container-high);
   font-weight: 600;
@@ -107,27 +108,34 @@
   padding: 24px 0;
 }
 
-.error-banner {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  background: var(--mat-sys-error-container, #fdecea);
-  color: var(--mat-sys-on-error-container, #610b0b);
-  padding: 10px 16px;
-  margin: 8px 16px;
-  border-radius: 8px;
-}
-
-.error-banner mat-icon {
-  color: var(--mat-sys-error, #b00020);
-}
-
-.error-banner .error-text {
-  flex: 1 1 auto;
-}
-
 .no-data {
   text-align: center;
   padding: 24px 0;
   color: var(--mat-sys-on-surface, rgba(0, 0, 0, 0.6));
+}
+
+
+.default-sort-icon {
+  height: 12px;
+  width: 12px;
+  position: relative;
+  transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1), opacity 225ms cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible;
+  color: var(--mat-sort-arrow-color, var(--mat-sys-on-surface));
+  top: -5px;
+}
+
+.hide-mat-sort-icon {
+  ::ng-deep .mat-sort-header-arrow {
+    display: none;
+    opacity: 0;
+  }
+}
+
+
+.text-ellipse {
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

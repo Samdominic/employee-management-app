@@ -1,5 +1,5 @@
 
-import { Component, effect, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatError, MatFormField, MatInputModule, MatLabel } from '@angular/material/input';
@@ -17,9 +17,11 @@ import { Employee, EmployeeService } from '../../services/employee.service';
     MatNativeDateModule],
   templateUrl: './employee-form.html',
   styleUrl: './employee-form.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmployeeForm {
   private employeeService = inject(EmployeeService);
+  private cdr = inject(ChangeDetectorRef);
   departments = this.employeeService.getDepartments();
   employee = input<Employee | null>(null);
   formReady = output<FormGroup>();
@@ -44,6 +46,7 @@ export class EmployeeForm {
 
   ngOnInit() {
     this.formReady.emit(this.employeeForm);
+    this.cdr.markForCheck();
   }
 
   private updateForm(emp: Employee) {
@@ -53,6 +56,7 @@ export class EmployeeForm {
       salary: emp.salary ?? null,
       joiningDate: emp.joiningDate ?? null,
     });
+    this.cdr.markForCheck();
   }
 
 }

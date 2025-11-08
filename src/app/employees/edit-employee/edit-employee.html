@@ -10,16 +10,29 @@
 
         <span class="spacer"></span>
 
-        <button matButton="tonal">
+        <button [disabled]="isSaving()" (click)="saveEmployee()" matButton="tonal">
+            @if(isSaving()){
+            <mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner>
+            }
             <mat-icon>save</mat-icon>
-            save
+            Save
         </button>
 
     </mat-toolbar>
 
+    @if(errorMessage()){
+    <div class="error-banner" role="alert">
+        <mat-icon>error</mat-icon>
+        <span class="error-text">{{ errorMessage() }}</span>
+        <button mat-icon-button (click)="clearError()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    }
+
     <mat-card-content>
         <p>Please update the employee details below:</p>
-        <app-employee-form (formReady)="onFormReady($event)"></app-employee-form>
+        <app-employee-form [employee]="employee()" (formReady)="onFormReady($event)"></app-employee-form>
     </mat-card-content>
 
 </mat-card>

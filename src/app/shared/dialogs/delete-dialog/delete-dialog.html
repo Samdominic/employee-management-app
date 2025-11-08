@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>
+  {{ data.title || 'Confirm Deletion' }}
+</h2>
+
+<mat-dialog-content>
+  <p>
+    Are you sure you want to delete
+    <strong>{{ data.itemName }}</strong>
+    {{ data.itemType ? 'from the ' + data.itemType : '' }}?
+  </p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close="false">Cancel</button>
+  <button class="bg-error text-error" mat-flat-button color="warn" [mat-dialog-close]="true">
+    Delete
+  </button>
+</mat-dialog-actions>

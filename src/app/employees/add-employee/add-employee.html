@@ -6,16 +6,29 @@
             <mat-icon>arrow_back</mat-icon>
         </button>
 
-        <span>Edit Employee</span>
+        <span>Add Employee</span>
 
         <span class="spacer"></span>
 
-        <button (click)="addEmployee()" matButton="tonal">
-            <mat-icon>add</mat-icon>
+        <button [disabled]="isAdding()" (click)="addEmployee()" matButton="tonal">
+            @if(isAdding()){
+            <mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner>
+            }
+            <mat-icon>person_add</mat-icon>
             Add
         </button>
 
     </mat-toolbar>
+
+    @if(errorMessage()){
+    <div class="error-banner" role="alert">
+        <mat-icon>error</mat-icon>
+        <span class="error-text">{{ errorMessage() }}</span>
+        <button mat-icon-button (click)="clearError()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    }
 
     <mat-card-content>
         <p>Please enter the new employee's details below:</p>

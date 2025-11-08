@@ -5,21 +5,22 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { Employee, EmployeeService } from '../../services/employee.service';
 import { MatSort, MatSortHeader, Sort } from '@angular/material/sort';
-import { CurrencyPipe, CommonModule } from '@angular/common';
+import { CurrencyPipe, CommonModule, NgClass } from '@angular/common';
 import { RouterLink } from "@angular/router";
 import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
-import { EmployeeDeleteDialogue } from '../employee-delete-dialogue/employee-delete-dialogue';
+import { DeleteDialog } from '../../shared/dialogs/delete-dialog/delete-dialog';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { catchError, finalize, tap } from 'rxjs';
+import { catchError, delay, finalize, firstValueFrom, of, tap } from 'rxjs';
+import { LoadingDialog } from '../../shared/dialogs/loading-dialog/loading-dialog';
 
 @Component({
   selector: 'app-employee-list',
   imports: [CommonModule, MatIconButton, MatButton, MatIcon, MatCard, MatCardContent, MatTableModule,
-    MatSortHeader, MatSort, CurrencyPipe, RouterLink, FormsModule, MatToolbar, MatProgressSpinner],
+    MatSortHeader, MatSort, CurrencyPipe, RouterLink, FormsModule, MatToolbar, MatProgressSpinner, NgClass],
   templateUrl: './employee-list.html',
   styleUrl: './employee-list.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -32,7 +33,7 @@ export class EmployeeList {
   private readonly employees = signal<Employee[]>([]);
   filteredEmployees = computed(() => this.sortAndFilterEmployees())
   showLoading = signal(true);
-  private sortDirection = signal<'asc' | 'desc' | ''>('');
+  sortDirection = signal<'asc' | 'desc' | ''>('');
   displayedColumns = ['id', 'name', 'department', 'salary', 'actions'];
   searchTerm = signal('');
   errorMessage = signal<string | null>(null);
@@ -94,25 +95,44 @@ export class EmployeeList {
     return sortedEmployees;
   }
 
-  openDeleteDialog(id: number): void {
-    const employee = this.filteredEmployees()?.find((e) => e.id === id)
+  async openDeleteDialog(id: number) {
+    const employee = this.filteredEmployees()?.find((e) => e.id === id);
 
-    const dialogRef = this.dialog.open(EmployeeDeleteDialogue, {
+    const dialogRef = this.dialog.open(DeleteDialog, {
       data: {
-        name: employee?.name
+        title: 'Delete Employee',
+        itemName: employee?.name,
+        itemType: 'employee list'
       }
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('result', result)
-      if (result) {
-        this.deleteEmployee(id);
+    try {
+      const result = await firstValueFrom(dialogRef.afterClosed());
+      if (result === true) {
+        await this.deleteEmployee(id);
       }
-    })
+    } catch (error) {
+      this.errorMessage.set('Failed to delete employee.');
+    }
+
   }
 
-  deleteEmployee(id: number) {
-
+  async deleteEmployee(id: number) {
+    try {
+      this.dialog.open(LoadingDialog, {
+        disableClose: false,
+        data: { message: 'Deleting employee...' }
+      });
+      await firstValueFrom(of(null).pipe(delay(1000))); //delay for dialog to show loading
+      await firstValueFrom(this.employeeService.deleteEmployee(id));
+      const updatedEmployees = this.employees().filter((e) => e.id !== id);
+      this.employees.set([...updatedEmployees]);
+    } catch (error) {
+      this.errorMessage.set('Failed to delete employee.');
+    } finally {
+      this.dialog.closeAll();
+      this.cdr.markForCheck();
+    }
   }
 
   clearError() {

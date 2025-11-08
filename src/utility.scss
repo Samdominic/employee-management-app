@@ -1,0 +1,84 @@
+
+
+
+.error-banner {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: var(--mat-sys-error-container, #fdecea);
+  color: var(--mat-sys-on-error-container, #610b0b);
+  padding: 10px 16px;
+  margin: 8px 16px;
+  border-radius: 8px;
+}
+
+.error-banner mat-icon {
+  color: var(--mat-sys-error, #b00020);
+}
+
+.error-banner .error-text {
+  flex: 1 1 auto;
+}
+
+
+/* utilities-mat-sys-colors.css*/
+/*Background Colors*/
+.bg-primary { background-color: var(--mat-sys-primary) !important; }
+.bg-primary-container { background-color: var(--mat-sys-primary-container) !important; }
+.bg-primary-fixed { background-color: var(--mat-sys-primary-fixed) !important; }
+.bg-primary-fixed-dim { background-color: var(--mat-sys-primary-fixed-dim) !important; }
+
+.bg-secondary { background-color: var(--mat-sys-secondary) !important; }
+.bg-secondary-container { background-color: var(--mat-sys-secondary-container) !important; }
+.bg-secondary-fixed { background-color: var(--mat-sys-secondary-fixed) !important; }
+.bg-secondary-fixed-dim { background-color: var(--mat-sys-secondary-fixed-dim) !important; }
+
+.bg-tertiary { background-color: var(--mat-sys-tertiary) !important; }
+.bg-tertiary-container { background-color: var(--mat-sys-tertiary-container) !important; }
+.bg-tertiary-fixed { background-color: var(--mat-sys-tertiary-fixed) !important; }
+.bg-tertiary-fixed-dim { background-color: var(--mat-sys-tertiary-fixed-dim) !important; }
+
+.bg-error { background-color: var(--mat-sys-error) !important; }
+.bg-error-container { background-color: var(--mat-sys-error-container) !important; }
+
+.bg-surface { background-color: var(--mat-sys-surface) !important; }
+.bg-surface-bright { background-color: var(--mat-sys-surface-bright) !important; }
+.bg-surface-container { background-color: var(--mat-sys-surface-container) !important; }
+.bg-surface-container-high { background-color: var(--mat-sys-surface-container-high) !important; }
+.bg-surface-container-highest { background-color: var(--mat-sys-surface-container-highest) !important; }
+.bg-surface-container-low { background-color: var(--mat-sys-surface-container-low) !important; }
+.bg-surface-container-lowest { background-color: var(--mat-sys-surface-container-lowest) !important; }
+.bg-surface-dim { background-color: var(--mat-sys-surface-dim) !important; }
+.bg-surface-tint { background-color: var(--mat-sys-surface-tint) !important; }
+.bg-surface-variant { background-color: var(--mat-sys-surface-variant) !important; }
+
+.bg-scrim { background-color: var(--mat-sys-scrim) !important; }
+.bg-shadow { background-color: var(--mat-sys-shadow) !important; }
+
+/*Text Colors*/
+.text-primary { color: var(--mat-sys-on-primary) !important; }
+.text-primary-container { color: var(--mat-sys-on-primary-container) !important; }
+.text-primary-fixed { color: var(--mat-sys-on-primary-fixed) !important; }
+.text-primary-fixed-variant { color: var(--mat-sys-on-primary-fixed-variant) !important; }
+
+.text-secondary { color: var(--mat-sys-on-secondary) !important; }
+.text-secondary-container { color: var(--mat-sys-on-secondary-container) !important; }
+.text-secondary-fixed { color: var(--mat-sys-on-secondary-fixed) !important; }
+.text-secondary-fixed-variant { color: var(--mat-sys-on-secondary-fixed-variant) !important; }
+
+.text-tertiary { color: var(--mat-sys-on-tertiary) !important; }
+.text-tertiary-container { color: var(--mat-sys-on-tertiary-container) !important; }
+.text-tertiary-fixed { color: var(--mat-sys-on-tertiary-fixed) !important; }
+.text-tertiary-fixed-variant { color: var(--mat-sys-on-tertiary-fixed-variant) !important; }
+
+.text-error { color: var(--mat-sys-on-error) !important; }
+.text-error-container { color: var(--mat-sys-on-error-container) !important; }
+
+.text-background { color: var(--mat-sys-on-background) !important; }
+.text-surface { color: var(--mat-sys-on-surface) !important; }
+.text-surface-variant { color: var(--mat-sys-on-surface-variant) !important; }
+.text-inverse-surface { color: var(--mat-sys-inverse-surface) !important; }
+.text-inverse-primary { color: var(--mat-sys-inverse-primary) !important; }
+
+.border-outline { border-color: var(--mat-sys-outline) !important; }
+.border-outline-variant { border-color: var(--mat-sys-outline-variant) !important; }

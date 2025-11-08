@@ -1,0 +1,14 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  text-align: center;
+  color: var(--mat-sys-on-surface);
+}
+
+mat-progress-spinner {
+  color: var(--mat-sys-primary);
+}
