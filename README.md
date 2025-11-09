@@ -1,59 +1,91 @@
-# EmployeeManagementApp
+---
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.5.
+# 👩‍💼 Employee Management App
 
-## Development server
+A modern, responsive Employee Management System built with **Angular**, **Angular Material**, and **JSON Server**.
+This app allows you to manage employee details — including adding, editing, viewing, and deleting employees — with a clean and intuitive UI.
 
-To start a local development server, run:
+---
+
+## 🚀 Getting Started
+
+Follow the steps below to set up and run the project locally.
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/Samdominic/employee-management-app.git
+cd employee-management-app
+```
+
+### 2️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+### 3️⃣ Run the Angular Application
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The application will be available at:
+👉 **[http://localhost:4200](http://localhost:4200)**
 
-## Code scaffolding
+### 4️⃣ Run the JSON Server (Mock API)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+In a separate terminal, run the JSON server:
 
 ```bash
-ng generate --help
+npm run watch:json-server
 ```
 
-## Building
+This starts the mock backend on:
+👉 **[http://localhost:3000](http://localhost:3000)**
 
-To build the project run:
+> The command is defined in `package.json` as:
+>
+> ```json
+> "watch:json-server": "json-server --watch db.json --port 3000"
+> ```
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## ⚙️ Project Overview
 
-## Running unit tests
+| Service     | Port   | Command                     |
+| ----------- | ------ | --------------------------- |
+| Angular App | `4200` | `ng serve`                  |
+| JSON Server | `3000` | `npm run watch:json-server` |
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+## 🧩 Tech Stack
 
-## Running end-to-end tests
+* **Angular 20**
+* **Angular Material**
+* **TypeScript**
+* **RxJS**
+* **JSON Server**
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+## 📁 Features
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+* ➕ Add new employees
+* ✏️ Edit employee details
+* 🗑️ Delete employees
+* 🔍 Search and filter by name or department
+* 📊 Responsive Material Design UI
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🧑‍💻 Author
+
+**Sam Dominic**
+[GitHub Profile](https://github.com/Samdominic)
+
+---
+
+Would you like me to make it include **badges** (for Angular version, license, and last update) at the top — like professional open-source projects?
