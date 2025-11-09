@@ -10,10 +10,7 @@
 
         <span class="spacer"></span>
 
-        <button [disabled]="isSaving()" (click)="saveEmployee()" matButton="tonal">
-            @if(isSaving()){
-            <mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner>
-            }
+        <button (click)="saveEmployee()" matButton="tonal">
             <mat-icon>save</mat-icon>
             Save
         </button>

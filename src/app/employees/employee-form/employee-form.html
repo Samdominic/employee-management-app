@@ -6,7 +6,7 @@
 		@if(employeeForm.controls['name'].invalid && (employeeForm.controls['name'].touched ||
 		employeeForm.controls['name'].dirty)){
 		<mat-error>
-			Name is required
+			Name is required.
 		</mat-error>
 		}
 	</mat-form-field>
@@ -21,7 +21,7 @@
 		@if(employeeForm.controls['department'].invalid && (employeeForm.controls['department'].touched ||
 		employeeForm.controls['department'].dirty)){
 		<mat-error>
-			Department is required
+			Department is required.
 		</mat-error>
 		}
 	</mat-form-field>
@@ -34,7 +34,7 @@
 		employeeForm.controls['salary'].dirty)){
 		<mat-error>
 			@if(employeeForm.controls['salary'].errors?.['required']){
-			Salary is required
+			Salary is required.
 			}@else{
 			Salary must be greater than 0.
 			}
@@ -47,5 +47,9 @@
 		<input matInput [matDatepicker]="picker" formControlName="joiningDate" />
 		<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 		<mat-datepicker #picker></mat-datepicker>
+		@if(employeeForm.controls['joiningDate'].invalid && (employeeForm.controls['joiningDate'].touched ||
+		employeeForm.controls['joiningDate'].dirty)){
+		<mat-error>Invalid date.</mat-error>
+		}
 	</mat-form-field>
 </form>

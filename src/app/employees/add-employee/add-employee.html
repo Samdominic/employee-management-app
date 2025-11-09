@@ -10,10 +10,7 @@
 
         <span class="spacer"></span>
 
-        <button [disabled]="isAdding()" (click)="addEmployee()" matButton="tonal">
-            @if(isAdding()){
-            <mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner>
-            }
+        <button (click)="addEmployee()" matButton="tonal">
             <mat-icon>person_add</mat-icon>
             Add
         </button>

@@ -6,15 +6,16 @@ import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton, MatMiniFabButton } from '@angular/material/button';
 import { Router, RouterLink } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { EmployeeService } from '../../services/employee.service';
+import { Employee, EmployeeService } from '../../services/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { firstValueFrom } from 'rxjs';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { delay, firstValueFrom, of } from 'rxjs';
+import { LoadingDialog } from '../../shared/dialogs/loading-dialog/loading-dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-employee',
   imports: [EmployeeForm, MatCard, MatToolbar, MatCardContent, MatIcon, MatButton,
-    MatMiniFabButton, RouterLink, MatProgressSpinner, MatIconButton],
+    MatMiniFabButton, RouterLink, MatIconButton],
   templateUrl: './add-employee.html',
   styleUrl: './add-employee.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -24,10 +25,10 @@ export class AddEmployee {
   private cdr = inject(ChangeDetectorRef);
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
+  private dialog = inject(MatDialog);
 
   employeeForm: FormGroup | null = null;
   errorMessage = signal('');
-  isAdding = signal(false);
 
   onFormReady(form: FormGroup) {
     this.employeeForm = form;
@@ -46,15 +47,25 @@ export class AddEmployee {
 
     try {
       this.errorMessage.set('');
-      this.isAdding.set(true);
-      const newEmployee = this.employeeForm?.value;
-      await firstValueFrom(this.employeeService.addEmployee(newEmployee));
-      this.snackBar.open('Employee added successfully', 'Close', { duration: 3000 });
+      const employeeData: Omit<Employee, 'id'> = {
+        name: this.employeeForm?.value.name.trim(),
+        department: this.employeeForm?.value.department,
+        joiningDate: this.employeeForm?.value.joiningDate,
+        salary: this.employeeForm?.value.salary
+      };
+
+      this.dialog.open(LoadingDialog, {
+        disableClose: false,
+        data: { message: 'Adding new employee details...' }
+      });
+      await firstValueFrom(of(null).pipe(delay(1000))); //delay for dialog to show loading
+      await firstValueFrom(this.employeeService.addEmployee(employeeData));
+      this.snackBar.open('Employee details added successfully', 'Close', { duration: 3000 });
       this.router.navigate(['/employees']);
     } catch (error) {
-      this.errorMessage.set('Failed to add employee');
+      this.errorMessage.set('Failed to add employee details. Please try again.');
     } finally {
-      this.isAdding.set(false);
+      this.dialog.closeAll();
     }
   }
 }

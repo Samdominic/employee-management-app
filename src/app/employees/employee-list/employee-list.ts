@@ -73,7 +73,7 @@ export class EmployeeList {
     const filteredEmployees = this.employees().filter((e) => {
       const name = e.name.toLowerCase();
       const department = e.department.toLowerCase();
-      const searchTerm = this.searchTerm().toLowerCase();
+      const searchTerm = this.searchTerm().trim().toLowerCase();
       return name.includes(searchTerm) || department.includes(searchTerm);
     });
     return filteredEmployees;
@@ -121,7 +121,7 @@ export class EmployeeList {
     try {
       this.dialog.open(LoadingDialog, {
         disableClose: false,
-        data: { message: 'Deleting employee...' }
+        data: { message: 'Deleting employee details...' }
       });
       await firstValueFrom(of(null).pipe(delay(1000))); //delay for dialog to show loading
       await firstValueFrom(this.employeeService.deleteEmployee(id));

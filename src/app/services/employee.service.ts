@@ -24,11 +24,11 @@ export class EmployeeService {
     return this.http.get<Employee>(`${this.API_URL}/${id}`);
   }
 
-  addEmployee(employee: Employee) {
+  addEmployee(employee: Omit<Employee, 'id'>) {
     return this.http.post<Employee>(this.API_URL, employee);
   }
 
-  updateEmployee(id: number, employee: Employee) {
+  updateEmployee(id: number, employee: Partial<Employee>) {
     return this.http.put<Employee>(`${this.API_URL}/${id}`, employee);
   }
 
