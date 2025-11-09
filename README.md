@@ -1,5 +1,3 @@
----
-
 # 👩‍💼 Employee Management App
 
 A modern, responsive Employee Management System built with **Angular**, **Angular Material**, and **JSON Server**.
