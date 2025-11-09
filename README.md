@@ -87,5 +87,3 @@ This starts the mock backend on:
 [GitHub Profile](https://github.com/Samdominic)
 
 ---
-
-Would you like me to make it include **badges** (for Angular version, license, and last update) at the top — like professional open-source projects?
